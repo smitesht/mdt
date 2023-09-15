@@ -1,0 +1,94 @@
+﻿<Window x:Class="StepTwo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StepTwo"
+        mc:Ignorable="d"
+        Title="Operation Generator" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />            
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+            <Button x:Name="btnFileBrose" Content="Browse JSON File" Width="200" Margin="5 5 5 5" Padding="5 5 5 5" Click="btnFileBrose_Click"  />
+            <Button x:Name="btnStart" Content="Start" Command="{Binding StartTaskCommand}"  Width="200" Margin="5 5 5 5" Padding="5 5 5 5"   />            
+        </StackPanel>
+        <Border>
+            
+        </Border>
+        <StackPanel Background="LightGray" Orientation="Vertical" Grid.Row="1" Grid.Column="0" Margin="5 5 5 5">
+            <Label HorizontalAlignment="Center" Margin="5 5 5 5" >Dataset Update</Label>
+            <StackPanel Orientation="Horizontal">
+                <Label Width="60">Id</Label>
+                <TextBox x:Name="txtdsId" Text="{Binding Path=SelectedDataset.Id}" Width="200" Margin="5 5 5 5" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Width="60">Values</Label>
+                <TextBox x:Name="txtdsValues" Text="{Binding Path=SelectedDataset.Values}" Width="200" Margin="5 5 5 5" />
+            </StackPanel>
+            <Button Margin="5 5 5 5">Update Value</Button>
+        </StackPanel>
+        
+        <StackPanel Background="Snow"  Orientation="Vertical" Grid.Row="1" Grid.Column="1" Margin="5 5 5 5">
+            <Label HorizontalAlignment="Center" Margin="5 5 5 5" >Update Generator</Label>
+            <StackPanel Orientation="Horizontal">
+                <Label Width="60">Id</Label>
+                <TextBox x:Name="txtgenId" Text="{Binding Path=SelectedGenerator.Id}" Width="200" Margin="5 5 5 5" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Width="60">Name</Label>
+                <TextBox x:Name="txtgenName" Text="{Binding Path=SelectedGenerator.name}" Width="200" Margin="5 5 5 5" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Width="60">Operation</Label>
+                <TextBox x:Name="txtgenOp" Text="{Binding Path=SelectedGenerator.operation}" Width="200" Margin="5 5 5 5" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Width="60">Interval</Label>
+                <TextBox x:Name="txtgenInterval" Text="{Binding Path=SelectedGenerator.interval}" Width="200" Margin="5 5 5 5" />
+            </StackPanel>
+            
+        </StackPanel>
+        <StackPanel Background="Snow" Orientation="Vertical" Grid.Row="2" Grid.Column="0">
+            <DataGrid x:Name="datasetGrid" ItemsSource="{Binding DataSets}" SelectedItem="{Binding Path=SelectedDataset, Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Width="50" Binding="{Binding Id}" />
+                    <DataGridTextColumn Header="Datasets" Binding="{Binding Values}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+        <StackPanel Background="LightGray" Orientation="Vertical" Grid.Row="2" Grid.Column="1">
+            <DataGrid x:Name="generatorGrid" ItemsSource="{Binding GeneratorDSs}" SelectedItem="{Binding Path=SelectedGenerator, Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Width="50" Binding="{Binding Id}" />
+                    <DataGridTextColumn Header="Name" Binding="{Binding name}" Width="*" />
+                    <DataGridTextColumn Header="Operation" Binding="{Binding operation}" Width="*" />
+                    <DataGridTextColumn Header="Interval" Binding="{Binding interval}" Width="*" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+            
+                <DataGrid x:Name="outputGrid" ItemsSource="{Binding OutputLogger}" 
+                    AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" 
+                          ScrollViewer.CanContentScroll="True"
+                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                          ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                          >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Logs / Output" Width="*" Binding="{Binding OutputMsg}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            
+            
+        </StackPanel>
+    </Grid>
+</Window>
